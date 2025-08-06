@@ -26,7 +26,7 @@ if uploaded_file:
 
     # Daftar kata-kata izin
     kata_izin = ['izin', 'sakit', 'cuti', 'dispensasi', 'alpha']
-    pengecualian_scan_pulang = ['libur rutin', 'tugas kantor','Izin dinas (Izin keperluan kantor)']
+    pengecualian_scan_pulang = ['Libur Rutin', 'tugas kantor','Izin dinas (Izin keperluan kantor)']
 
     # Hitung total hari kerja per karyawan
     hari_kerja = df.groupby('Nama').size().reset_index(name='Jumlah_Hari_Kerja')
