@@ -25,7 +25,7 @@ if uploaded_file:
     st.dataframe(df)
 
     # Daftar kata-kata izin
-    kata_izin = ['izin', 'sakit', 'cuti', 'dispensasi', 'alpha']
+    # kata_izin = ['izin', 'sakit', 'cuti', 'dispensasi', 'alpha']
     pengecualian_scan_pulang = ['Libur Rutin', 'tugas kantor','Izin dinas (Izin keperluan kantor)']
 
     # Hitung total hari kerja per karyawan
@@ -39,10 +39,10 @@ if uploaded_file:
         no_izin_kolom = pd.isna(row.get('Izin')) or row['Izin'] == 0
 
         # Cek tidak ada kata izin di keterangan
-        no_izin_keterangan = True
-        if pd.notna(row.get('Keterangan')):
-            ket = str(row['Keterangan']).lower()
-            no_izin_keterangan = not any(k in ket for k in kata_izin)
+        # no_izin_keterangan = True
+        # if pd.notna(row.get('Keterangan')):
+        #     ket = str(row['Keterangan']).lower()
+        #     no_izin_keterangan = not any(k in ket for k in kata_izin)
 
         # Cek jam_kerja tidak "Tidak hadir"
         jam_kerja_oke = True
