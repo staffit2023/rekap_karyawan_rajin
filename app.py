@@ -26,7 +26,7 @@ if uploaded_file:
 
     # Daftar kata-kata izin
     kata_izin = ['izin', 'sakit', 'cuti', 'dispensasi', 'alpha']
-    pengecualian_scan_pulang = ['libur rutin', 'tugas kantor']
+    pengecualian_scan_pulang = ['libur rutin', 'tugas kantor','Izin dinas (Izin keperluan kantor)']
 
     # Hitung total hari kerja per karyawan
     hari_kerja = df.groupby('Nama').size().reset_index(name='Jumlah_Hari_Kerja')
@@ -73,15 +73,15 @@ if uploaded_file:
     df['Bersih'] = df.apply(bersih, axis=1)
 
     # Hitung hadir bersih
-    hadir_bersih = df[df['Bersih']].groupby('Nama').size().reset_index(name='Izin dinas (Izin keperluan kantor)')
+    hadir_bersih = df[df['Bersih']].groupby('Nama').size().reset_index(name='Hadir_Tanpa_Telat_Izin')
 
     # Gabungkan semua
     rekap = pd.merge(hari_kerja, hadir_bersih, on='Nama', how='left')
-    rekap['Izin dinas (Izin keperluan kantor)'] = rekap['Izin dinas (Izin keperluan kantor)'].fillna(0).astype(int)
+    rekap['Hadir_Tanpa_Telat_Izin'] = rekap['Hadir_Tanpa_Telat_Izin'].fillna(0).astype(int)
 
     # Tandai status rajin
     rekap['Status'] = rekap.apply(
-        lambda row: 'Rajin' if row['Jumlah_Hari_Kerja'] == row['Izin dinas (Izin keperluan kantor)'] else 'Tidak', axis=1
+        lambda row: 'Rajin' if row['Jumlah_Hari_Kerja'] == row['Hadir_Tanpa_Telat_Izin'] else 'Tidak', axis=1
     )
 
     # Pilihan untuk tampilkan semua atau hanya yang rajin
